@@ -1,0 +1,17 @@
+Day 21/25 – Super Easy LeetCode Problem (Code 21)
+
+Problem: Three Consecutive Odds (Easy)
+Language: Python
+
+In this post:
+• Problem explanation
+• Simple approach
+• Python solution
+
+Swipe ➡️ to learn.
+Follow for daily LeetCode & DSA practice.
+
+Official LeetCode problem link:
+https://leetcode.com/problems/three-consecutive-odds/description/?envType=problem-list-v2&envId=prshgx6i
+
+#LeetCode #DSA #Python

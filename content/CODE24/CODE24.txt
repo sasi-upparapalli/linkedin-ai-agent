@@ -1,0 +1,17 @@
+Day 24/25 – Super Easy LeetCode Problem (Code 24)
+
+Problem: Robot Return to Origin (Easy)
+Language: Python
+
+In this post:
+• Problem explanation
+• Simple approach
+• Python solution
+
+Swipe ➡️ to learn.
+Follow for daily LeetCode & DSA practice.
+
+Official LeetCode problem link:
+https://leetcode.com/problems/robot-return-to-origin/description/?envType=problem-list-v2&envId=prshgx6i
+
+#LeetCode #DSA #Python

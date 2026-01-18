@@ -1,0 +1,17 @@
+Day 19/25 – Super Easy LeetCode Problem (Code 19)
+
+Problem: Subtract the Product and Sum of Digits of an Integer (Easy)
+Language: Python
+
+In this post:
+• Problem explanation
+• Simple approach
+• Python solution
+
+Swipe ➡️ to learn.
+Follow for daily LeetCode & DSA practice.
+
+Official LeetCode problem link:
+https://leetcode.com/problems/subtract-the-product-and-sum-of-digits-of-an-integer/description/?envType=problem-list-v2&envId=prshgx6i
+
+#LeetCode #DSA #Python

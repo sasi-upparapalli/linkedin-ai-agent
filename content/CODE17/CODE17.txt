@@ -1,0 +1,17 @@
+Day 17/25 – Super Easy LeetCode Problem (Code 17)
+
+Problem: Squares of a Sorted Array (Easy)
+Language: Python
+
+In this post:
+• Problem explanation
+• Simple approach
+• Python solution
+
+Swipe ➡️ to learn.
+Follow for daily LeetCode & DSA practice.
+
+Official LeetCode problem link:
+https://leetcode.com/problems/squares-of-a-sorted-array/description/?envType=problem-list-v2&envId=prshgx6i
+
+#LeetCode #DSA #Python

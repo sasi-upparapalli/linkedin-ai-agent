@@ -1,0 +1,17 @@
+Day 03/25 – Super Easy LeetCode Problem (Code 03)
+
+Problem: Minimum Number Game (Easy)
+Language: Python
+
+In this post:
+• Problem explanation
+• Simple approach
+• Python solution
+
+Swipe ➡️ to learn.
+Follow for daily LeetCode & DSA practice.
+
+Official LeetCode problem link:
+https://leetcode.com/problems/minimum-number-game/description/
+
+#LeetCode #DSA #Python

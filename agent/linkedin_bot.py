@@ -58,27 +58,32 @@ def linkedin_login(page):
 
 def create_post(page, images, caption):
     page.goto("https://www.linkedin.com/feed/")
+    page.wait_for_load_state("networkidle")
     time.sleep(5)
 
-    page.click("button:has-text('Start a post')")
+    # Click "Start a post" (robust selector)
+    page.locator("button[aria-label*='Start']").first.click()
+    time.sleep(4)
+
+    # Click "Add media"
+    page.locator("button[aria-label*='media']").click()
     time.sleep(3)
 
-    page.click("button:has-text('Add media')")
-    time.sleep(2)
+    # Upload images
+    page.locator("input[type='file']").set_input_files(images)
+    time.sleep(6)
 
-    file_input = page.locator("input[type=file]")
-    file_input.set_input_files(images)
-    time.sleep(5)
-
-    page.click("button:has-text('Next')")
+    # Click Next
+    page.locator("button[aria-label*='Next']").click()
     time.sleep(3)
 
-    page.fill("div[role='textbox']", caption)
+    # Enter caption
+    page.locator("div[role='textbox']").fill(caption)
     time.sleep(2)
 
-    page.click("button:has-text('Post')")
-    time.sleep(5)
-
+    # Click Post
+    page.locator("button[aria-label*='Post']").click()
+    time.sleep(6)
 
 def main():
     images, caption, folder = get_next_content()

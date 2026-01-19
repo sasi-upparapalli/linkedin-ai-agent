@@ -21,5 +21,9 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Run LinkedIn Agent
         run: node agent.js
+

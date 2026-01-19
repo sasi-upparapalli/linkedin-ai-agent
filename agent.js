@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { execSync } = require("child_process");
 
 function log(msg) {
   console.log(`[AGENT] ${msg}`);
@@ -29,4 +30,20 @@ log("Caption text loaded successfully");
 log("Caption preview:");
 log(captionText.substring(0, 120));
 
-log("Agent run completed (no posting yet)");
+// STEP 3: Update state for next run
+const nextCode = codeNumber + 1;
+
+state.current_code = nextCode;
+fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
+
+log(`State updated: next code will be ${nextCode}`);
+
+// STEP 4: Commit updated state.json back to GitHub
+execSync("git config user.name 'github-actions[bot]'");
+execSync("git config user.email 'github-actions[bot]@users.noreply.github.com'");
+execSync("git add state.json");
+execSync(`git commit -m "Agent update: move to CODE${String(nextCode).padStart(2, "0")}"`);
+execSync("git push");
+
+log("State committed to GitHub successfully");
+log("Agent run completed (state updated, no posting yet)");

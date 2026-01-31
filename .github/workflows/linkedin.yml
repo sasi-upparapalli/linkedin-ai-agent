@@ -1,12 +1,15 @@
-name: LinkedIn Email Agent
+name: LinkedIn Daily Reminder
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '30 12 * * *'   # 6:00 PM IST
+    # 9:00 AM IST
+    - cron: '30 3 * * *'
+    # 7:00 PM IST
+    - cron: '30 13 * * *'
+  workflow_dispatch:
 
 jobs:
-  send-email:
+  send-reminder:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,10 +24,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Send Email for CODE20
+      - name: Send LinkedIn Reminder Email
         env:
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
-          CODE_NUMBER: "20"
         run: node agent.js

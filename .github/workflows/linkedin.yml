@@ -1,20 +1,19 @@
-name: LinkedIn Auto Posting Agent
+name: LinkedIn Email Agent
 
 on:
-  schedule:
-    - cron: '30 3 * * *'
-    - cron: '30 12 * * *'
   workflow_dispatch:
+  schedule:
+    - cron: '30 12 * * *'   # 6:00 PM IST
 
 jobs:
-  run-agent:
+  send-email:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '18'
@@ -22,9 +21,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run LinkedIn Agent
+      - name: Send Email for CODE20
         env:
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          CODE_NUMBER: "20"
         run: node agent.js

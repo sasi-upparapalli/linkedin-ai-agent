@@ -1,48 +1,42 @@
 const fs = require("fs");
 const path = require("path");
-const { execSync } = require("child_process");
 const nodemailer = require("nodemailer");
 
 function log(msg) {
   console.log(`[AGENT] ${msg}`);
 }
 
-// ===== ENV VARIABLES (from GitHub Secrets) =====
+// ===== ENV VARIABLES =====
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
 const EMAIL_TO = process.env.EMAIL_TO;
+const CODE_NUMBER = process.env.CODE_NUMBER || "20";
 
 if (!EMAIL_USER || !EMAIL_PASS || !EMAIL_TO) {
   throw new Error("Missing EMAIL_* environment variables");
 }
 
-// ===== STEP 1: Read state.json =====
-const statePath = path.join(__dirname, "state.json");
-const state = JSON.parse(fs.readFileSync(statePath, "utf8"));
+// ===== SELECT CODE FOLDER =====
+const codeFolder = `CODE${String(CODE_NUMBER).padStart(2, "0")}`;
+log(`Using folder: ${codeFolder}`);
 
-const codeNumber = state.current_code;
-const codeFolder = `CODE${String(codeNumber).padStart(2, "0")}`;
-
-log(`Selected folder: ${codeFolder}`);
-
-// ===== STEP 2: Read caption =====
+// ===== READ CAPTION =====
 const captionPath = path.join(
   __dirname,
   "content",
   codeFolder,
   `${codeFolder}.txt`
 );
+
 const captionText = fs.readFileSync(captionPath, "utf8");
 
-// ===== STEP 3: Collect images =====
+// ===== COLLECT IMAGES =====
 const imageDir = path.join(__dirname, "content", codeFolder);
 const images = fs
   .readdirSync(imageDir)
   .filter(f => f.startsWith("PAGE") && f.endsWith(".jpeg"));
 
-log(`Images found: ${images.join(", ")}`);
-
-// ===== STEP 4: Send Email =====
+// ===== EMAIL SETUP =====
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -61,10 +55,10 @@ CAPTION:
 ${captionText}
 --------------------------------
 
-IMAGES TO UPLOAD:
+IMAGES:
 ${images.join("\n")}
 
-(Upload images + paste caption + post)
+(Upload images + paste caption)
 `;
 
 async function sendEmail() {
@@ -79,18 +73,6 @@ async function sendEmail() {
 sendEmail()
   .then(() => {
     log("Email sent successfully");
-
-    // ===== STEP 5: Update state =====
-    state.current_code = codeNumber + 1;
-    fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
-
-    execSync("git config user.name 'github-actions[bot]'");
-    execSync("git config user.email 'github-actions[bot]@users.noreply.github.com'");
-    execSync("git add state.json");
-    execSync(`git commit -m "Agent advanced to CODE${String(state.current_code).padStart(2, "0")}"`);
-    execSync("git push");
-
-    log("State updated and committed");
   })
   .catch(err => {
     console.error("EMAIL ERROR:", err.message);
